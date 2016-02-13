@@ -8,6 +8,9 @@
       d:DesignHeight="300" d:DesignWidth="300"
       Title="GamePage">
     <Grid Background="DarkRed">
+        
         <Button Content="Back" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Click" />
+        <local:GameControl/>
+
     </Grid>
 </Page>

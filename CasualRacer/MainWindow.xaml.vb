@@ -1,4 +1,4 @@
-﻿Class MainWindow
+﻿Public Class MainWindow
     Public Sub New()
 
         ' Dieser Aufruf ist für den Designer erforderlich.

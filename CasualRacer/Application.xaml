@@ -4,6 +4,29 @@
     xmlns:local="clr-namespace:CasualRacer"
     StartupUri="MainWindow.xaml">
     <Application.Resources>
-        
+        <Style TargetType="Button" >
+            <!-- ="10 5" FontSize="20" Background="DarkGray" -->
+            <Setter Property="Padding" Value="10 5" />
+            <Setter Property="FontSize" Value="17" />
+            <Setter Property="Background" Value="DarkGray" />
+            <Setter Property="Margin" Value="0 0 0 5" />
+            <!-- The following is advanced stuff and needed to trigger Events -->
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="Foreground"   Value="LightBlue" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Application.Resources>
 </Application>

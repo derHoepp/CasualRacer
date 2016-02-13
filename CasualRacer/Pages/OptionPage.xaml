@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
       Title="OptionPage">
-    <Grid Background="Aqua">
+    <Grid>
         <Button Content="back" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Click" />
     </Grid>
 </Page>

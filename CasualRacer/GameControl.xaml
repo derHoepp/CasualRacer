@@ -7,15 +7,18 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid Background="DarkGray">
-        <Border Width="20" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top" Background="Red">
+        <Border Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20">
+            <Border.Background>
+                <ImageBrush ImageSource="Assets/Sprites/Cars/redCar.png"/>
+            </Border.Background>
             <Border.RenderTransform>
                 <TransformGroup>
-                    
+
                     <RotateTransform Angle="{Binding Player1.Direction}" CenterX="10" CenterY="10" />
                     <!-- <TranslateTransform X="30" Y="30"/> -->
                 </TransformGroup>
             </Border.RenderTransform>
-            
+
         </Border>
     </Grid>
 </UserControl>

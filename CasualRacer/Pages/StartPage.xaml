@@ -12,6 +12,7 @@
         <StackPanel Width="200" VerticalAlignment="Bottom" Margin="100">
             <Button Content="Start Game" Click="Button_Click" />    
             <Button Content="Options" Click="Button_Click_1" />
+            <Button Content="Tests" Click="Button_Click_3" />
             <Button Content="Exit" Click="Button_Click_2" />
         </StackPanel>
     </Grid>

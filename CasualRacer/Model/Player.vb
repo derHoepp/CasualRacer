@@ -25,7 +25,7 @@ Friend Class Player
         Set(ByVal value As Vector)
             If mPosition <> value Then
                 mPosition = value
-                RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs("Position"))
+                RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(NameOf(Position)))
             End If
         End Set
     End Property
@@ -37,7 +37,7 @@ Friend Class Player
         Set(ByVal value As Double)
             If mDirection <> value Then
                 mDirection = value
-                RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs("Direction"))
+                RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(NameOf(Direction)))
             End If
         End Set
     End Property

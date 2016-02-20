@@ -7,6 +7,10 @@
         NavigationService.Navigate(New OptionPage())
     End Sub
 
+    Private Sub Button_Click_3(sender As Object, e As RoutedEventArgs)
+        NavigationService.Navigate(New TestPage())
+    End Sub
+
     Private Sub Button_Click_2(sender As Object, e As RoutedEventArgs)
         Application.Current.MainWindow.Close()
     End Sub

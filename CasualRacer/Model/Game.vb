@@ -28,15 +28,24 @@
     Public Sub New()
         'Players = New List(Of Player)
         mPlayer1 = New Player()
-        Track = New Track(15, 10)
+        Track = New Track(1, 1).Load("Tracks\Track 01.txt")
 
-        Track.Tiles(10, 10) = TrackTile.Road
-        Track.Tiles(10, 9) = TrackTile.Gras
-        Track.Tiles(4, 10) = TrackTile.Sand
     End Sub
 
     Public Sub Update(ByRef TotalTime As TimeSpan, ByRef ElapsedTime As TimeSpan)
         'Hier wird das Spiel regelmäßig geupdated
-        mPlayer1.Update(TotalTime, ElapsedTime)
+
+        'Lenkung
+        If mPlayer1.WheelLeft Then
+            mPlayer1.Direction -= ElapsedTime.TotalSeconds * 100
+        End If
+        If mPlayer1.WheelRight Then
+            mPlayer1.Direction += ElapsedTime.TotalSeconds * 100
+        End If
+
+        'Beschleunigung und Verzögerung
+
+
+
     End Sub
 End Class

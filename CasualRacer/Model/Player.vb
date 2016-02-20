@@ -8,13 +8,16 @@ Friend Class Player
 
     Private mDirection As Double
     Private mPosition As Vector
-    Private mAcceleration As Boolean
+    Private mVelocity As Double
+    Private mAccelerate As Boolean
+    Private mBrake As Boolean
     Private mWheelLeft As Boolean
     Private mWheelRight As Boolean
 
     Public Sub New()
         mPosition = New Vector(0, 0)
         mDirection = 0
+        mVelocity = 0
     End Sub
 
 
@@ -42,17 +45,36 @@ Friend Class Player
         End Set
     End Property
 
-
-    Public Property Acceleration() As Boolean
+    Public Property Velocity() As Double
         Get
-            Return mAcceleration
+            Return mVelocity
         End Get
-        Set(ByVal value As Boolean)
-            mAcceleration = value
+        Set(ByVal value As Double)
+            If mVelocity <> value Then
+                mVelocity = value
+                RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(NameOf(Velocity)))
+            End If
         End Set
     End Property
-    'wheel left
-    'wheel right
+
+
+    Public Property Accelerate() As Boolean
+        Get
+            Return mAccelerate
+        End Get
+        Set(ByVal value As Boolean)
+            mAccelerate = value
+        End Set
+    End Property
+
+    Public Property Brake() As Boolean
+        Get
+            Return mBrake
+        End Get
+        Set(ByVal value As Boolean)
+            mBrake = value
+        End Set
+    End Property
 
 
     Public Property WheelLeft() As Boolean
@@ -79,15 +101,5 @@ Friend Class Player
             Implements INotifyPropertyChanged.PropertyChanged
 
 
-
-    Public Sub Update(ByRef TotalTime As TimeSpan, ByRef ElapsedTime As TimeSpan)
-        If mWheelLeft Then
-            Me.Direction -= ElapsedTime.TotalSeconds * TURN_TIME_P_SECOND
-        End If
-        If mWheelRight Then
-            Me.Direction += ElapsedTime.TotalSeconds * TURN_TIME_P_SECOND
-        End If
-
-    End Sub
 
 End Class

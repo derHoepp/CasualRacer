@@ -51,7 +51,31 @@ Public Class Track
 
         Return tmpTrack
     End Function
+    Public Function getSpeedModificatorByPosition(Position As Vector) As Double
 
+        Dim TileUnderPlayer As TrackTile = getTileByPosition(Position)
+        Select Case TileUnderPlayer
+            Case TrackTile.Dirt
+                Return 0.2
+            Case TrackTile.Sand
+                Return 0.4
+            Case TrackTile.Gras
+                Return 0.6
+            Case TrackTile.Road
+                Return 1
+            Case Else
+                Return 0.1
+        End Select
+
+    End Function
+    Public Function getTileByPosition(Position As Vector) As TrackTile
+        Dim TileX As Integer = CInt((Position.X - 10) / Me.TileSize.Width)
+        Dim TileY As Integer = CInt((Position.Y - 10) / Me.TileSize.Height)
+
+        TileX = Math.Min(Math.Max(0, TileX), UBound(Me.Tiles, 1))
+        TileY = Math.Min(Math.Max(0, TileY), UBound(Me.Tiles, 2))
+        Return Me.Tiles(TileX, TileY)
+    End Function
 End Class
 
 Public Enum TrackTile

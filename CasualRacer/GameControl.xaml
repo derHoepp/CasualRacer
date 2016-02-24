@@ -9,16 +9,24 @@
     <Canvas>
         <Border Width="20" Height="20" Canvas.Left="-10" Canvas.Top="-10" RenderTransformOrigin="0.5,0.5">
             <Border.Background>
-                <ImageBrush ImageSource="Assets/Sprites/Cars/redCar.png"/>
+                <ImageBrush ImageSource="Assets/Sprites/Cars/redCar.png">
+                    <ImageBrush.RelativeTransform>
+                        <TransformGroup>
+                            <RotateTransform Angle="90" CenterX="0.5" CenterY="0.5"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </ImageBrush.RelativeTransform>
+                </ImageBrush>
             </Border.Background>
             <Border.RenderTransform>
                 <TransformGroup>
-
                     <RotateTransform Angle="{Binding Player1.Direction}" />
-                    <!-- <TranslateTransform X="30" Y="30"/> -->
+                    <TranslateTransform X="{Binding Player1.Position.X}" Y="{Binding Player1.Position.Y}"/>
                 </TransformGroup>
             </Border.RenderTransform>
 
         </Border>
+        <Label x:Name="label" Content="{Binding Infotext}" Canvas.Left="200" Canvas.Top="274"/>
+
     </Canvas>
 </UserControl>

@@ -40,7 +40,9 @@ Public Class GameControl
     Private Sub MainWindow_KeyDown(sender As Object, e As KeyEventArgs)
         Select Case e.Key
             Case Key.Up
-                mGame.Player1.Acceleration = True
+                mGame.Player1.Accelerate = True
+            Case Key.Down
+                mGame.Player1.Brake = True
             Case Key.Left
                 mGame.Player1.WheelLeft = True
             Case Key.Right
@@ -52,7 +54,9 @@ Public Class GameControl
     Private Sub MainWindow_KeyUp(sender As Object, e As KeyEventArgs)
         Select Case e.Key
             Case Key.Up
-                mGame.Player1.Acceleration = False
+                mGame.Player1.Accelerate = False
+            Case Key.Down
+                mGame.Player1.Brake = False
             Case Key.Left
                 mGame.Player1.WheelLeft = False
             Case Key.Right
@@ -76,16 +80,15 @@ Public Class GameControl
         Dim tmpPen As Pen = New Pen(testBrush, 2)
         Dim PaintingBrush As Brush
 
-
-
-        'drawingContext.DrawRectangle(dirtBrush, Nothing, New Rect(10, 10, 100, 150))
-        'drawingContext.DrawRectangle(sandBrush, Nothing, New Rect(20, 20, 100, 150))
-        'drawingContext.DrawRectangle(grasBrush, Nothing, New Rect(30, 30, 100, 150))
-        'drawingContext.DrawRectangle(roadBrush, Nothing, New Rect(40, 40, 100, 150))
         Dim countXTiles As Long = UBound(theTrack.Tiles, 1) + 1
         Dim countYTiles As Long = UBound(theTrack.Tiles, 2) + 1
+
+
         tileWidth = (Me.RenderSize.Width / countXTiles)
         tileHeight = (Me.RenderSize.Height / countYTiles)
+
+        theTrack.TileSize = New TileSize(tileWidth, tileHeight)
+
         For x = LBound(theTrack.Tiles(), 1) To UBound(theTrack.Tiles(), 1)
             For y = LBound(theTrack.Tiles(), 2) To UBound(theTrack.Tiles(), 2)
                 Select Case theTrack.Tiles(x, y)
@@ -100,13 +103,11 @@ Public Class GameControl
                         PaintingBrush = roadBrush
                 End Select
 
-                'Top = x * tilehight
-                'Left = y * tilewidth
-                'Width =
-                'Height 
 
-                'tileWidth = GameControl.WidthProperty / UBound(theTrack.Tiles, 2)
-                drawingContext.DrawRectangle(PaintingBrush, tmpPen, New Rect(x * tileWidth, y * tileHeight, tileWidth, tileHeight))
+                drawingContext.DrawRectangle(PaintingBrush, tmpPen, New Rect(x * theTrack.TileSize.Width,
+                                                                             y * theTrack.TileSize.Height,
+                                                                             theTrack.TileSize.Width,
+                                                                             theTrack.TileSize.Height))
             Next y
         Next x
 

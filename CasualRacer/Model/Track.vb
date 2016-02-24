@@ -2,9 +2,20 @@
 
 Public Class Track
     Private mTrackTile(,) As TrackTile
+    Private mTileSize As TileSize
+
+    Public Property TileSize() As TileSize
+        Get
+            Return mTileSize
+        End Get
+        Set(ByVal value As TileSize)
+            mTileSize = value
+        End Set
+    End Property
 
     Public Sub New(width As Long, height As Long)
         ReDim mTrackTile(width, height)
+        mTileSize = New TileSize(20, 20)
     End Sub
 
     Public Property Tiles As TrackTile(,)
@@ -49,3 +60,11 @@ Public Enum TrackTile
     Gras = 2
     Road = 3
 End Enum
+Public Class TileSize
+    Public Width As Double
+    Public Height As Double
+    Public Sub New(Width As Double, Height As Double)
+        Me.Width = Width
+        Me.Height = Height
+    End Sub
+End Class

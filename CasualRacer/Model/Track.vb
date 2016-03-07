@@ -4,6 +4,19 @@ Public Class Track
     Private mTrackTile(,) As TrackTile
     Private mTileSize As TileSize
 
+
+    Public ReadOnly Property Width() As Long
+        Get
+            Return mTrackTile.GetLength(0) * mTileSize.Width
+        End Get
+    End Property
+
+    Public ReadOnly Property Height() As Long
+        Get
+            Return mTrackTile.GetLength(1) * mTileSize.Height
+        End Get
+    End Property
+
     Public Property TileSize() As TileSize
         Get
             Return mTileSize

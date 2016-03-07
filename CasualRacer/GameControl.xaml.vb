@@ -7,6 +7,11 @@ Public Class GameControl
     Private mElapsedWatch As Stopwatch = New Stopwatch()
     Private mWindow As MainWindow
 
+    Private dirtBrush As ImageBrush
+    Private sandBrush As ImageBrush
+    Private grasBrush As ImageBrush
+    Private roadBrush As ImageBrush
+    Private tilesBrush As ImageBrush
     Public Sub New()
 
         ' Dieser Aufruf ist für den Designer erforderlich.
@@ -34,6 +39,20 @@ Public Class GameControl
         Catch ex As Exception
             'DO nothing, adding the handler only works if called within running application.
         End Try
+        Dim path As String = System.IO.Path.Combine(Environment.CurrentDirectory, "Assets", "Sprites", "Roads")
+
+
+        Dim DirtImageSource As ImageSource = New BitmapImage(New Uri(path & "\Dirt_Center.png"))
+        Dim SandImageSource As ImageSource = New BitmapImage(New Uri(path & "\Sand_Center.png"))
+        Dim RoadImageSource As ImageSource = New BitmapImage(New Uri(path & "\Road_Center.png"))
+        Dim GrasImageSource As ImageSource = New BitmapImage(New Uri(path & "\Gras_Center.png"))
+        Dim TilesImageSource As ImageSource = New BitmapImage(New Uri(path & "\tiles.png"))
+
+        dirtBrush = New ImageBrush(DirtImageSource)
+        sandBrush = New ImageBrush(SandImageSource)
+        grasBrush = New ImageBrush(GrasImageSource)
+        roadBrush = New ImageBrush(RoadImageSource)
+        tilesBrush = New ImageBrush(TilesImageSource)
 
         mTotalWatch.Start()
         mElapsedWatch.Start()
@@ -88,42 +107,33 @@ Public Class GameControl
         Dim tileWidth As Long
         Dim tileHeight As Long
 
-        'Dim dirtBrush As Brush = New SolidColorBrush(Color.FromArgb(255, 127, 51, 0))
-        'Dim sandBrush As Brush = New SolidColorBrush(Color.FromArgb(255, 255, 226, 147))
-        'Dim grasBrush As Brush = New SolidColorBrush(Color.FromArgb(255, 76, 255, 0))
-        'Dim roadBrush As Brush = New SolidColorBrush(Color.FromArgb(255, 128, 128, 128))
-        Dim testBrush As Brush = New SolidColorBrush(Color.FromArgb(0, 200, 200, 200))
-
-        Dim path As String = System.IO.Path.Combine(Environment.CurrentDirectory, "Assets", "Sprites", "Roads")
+        Dim fallBackBrush As Brush = New SolidColorBrush(Color.FromArgb(0, 200, 200, 200))
 
 
-        Dim DirtImageSource As ImageSource = New BitmapImage(New Uri(path & "\Dirt_Center.png"))
-        Dim SandImageSource As ImageSource = New BitmapImage(New Uri(path & "\Sand_Center.png"))
-        Dim RoadImageSource As ImageSource = New BitmapImage(New Uri(path & "\Road_Center.png"))
-        Dim GrasImageSource As ImageSource = New BitmapImage(New Uri(path & "\Gras_Center.png"))
-
-        Dim dirtBrush As ImageBrush = New ImageBrush(DirtImageSource)
-        Dim sandBrush As ImageBrush = New ImageBrush(SandImageSource)
-        Dim grasBrush As ImageBrush = New ImageBrush(GrasImageSource)
-        Dim RoadBrush As ImageBrush = New ImageBrush(RoadImageSource)
-
-
-
-
-        Dim tmpPen As Pen = New Pen(testBrush, 2)
+        Dim tmpPen As Pen = New Pen(fallBackBrush, 2)
         Dim PaintingBrush As Brush
 
         Dim countXTiles As Long = UBound(theTrack.Tiles, 1) + 1
         Dim countYTiles As Long = UBound(theTrack.Tiles, 2) + 1
 
 
+
+
         tileWidth = (Me.RenderSize.Width / countXTiles)
         tileHeight = (Me.RenderSize.Height / countYTiles)
-        'dirtBrush.TileMode = TileMode.Tile
-
-        'dirtBrush.Viewbox = New Rect(0, 0, tileWidth, tileHeight)
 
         theTrack.TileSize = New TileSize(tileWidth, tileHeight)
+
+        tilesBrush.TileMode = TileMode.Tile
+        'tilesBrush.Stretch
+        tilesBrush.Viewport = New Rect(0, 0, 1 / theTrack.Tiles.GetLength(0), 1 / theTrack.Tiles.GetLength(1))
+        tilesBrush.ViewportUnits = BrushMappingMode.RelativeToBoundingBox
+        tilesBrush.Viewbox = New Rect(1820, 0, 128, 128) 'Rect(1299, 649, 128, 128)
+        tilesBrush.ViewboxUnits = BrushMappingMode.Absolute
+
+
+
+        drawingContext.DrawRectangle(tilesBrush, tmpPen, New Rect(0, 0, theTrack.Width, theTrack.Height))
 
         For x = LBound(theTrack.Tiles(), 1) To UBound(theTrack.Tiles(), 1)
             For y = LBound(theTrack.Tiles(), 2) To UBound(theTrack.Tiles(), 2)
@@ -138,16 +148,17 @@ Public Class GameControl
                     Case TrackTile.Road
                         PaintingBrush = roadBrush
                     Case Else
-                        PaintingBrush = testBrush
+                        PaintingBrush = fallBackBrush
                 End Select
 
-
-                drawingContext.DrawRectangle(PaintingBrush, tmpPen, New Rect(x * theTrack.TileSize.Width,
-                                                                             y * theTrack.TileSize.Height,
-                                                                             theTrack.TileSize.Width,
-                                                                             theTrack.TileSize.Height))
+                'drawingContext.DrawRectangle(PaintingBrush, tmpPen, New Rect(x * theTrack.TileSize.Width,
+                '                                                             y * theTrack.TileSize.Height,
+                '                                                             theTrack.TileSize.Width,
+                '                                                             theTrack.TileSize.Height))
             Next y
         Next x
+
+
 
     End Sub
 

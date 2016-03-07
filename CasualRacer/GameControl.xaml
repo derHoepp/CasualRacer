@@ -7,25 +7,21 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Canvas>
-        <Border Width="20" Height="20" Canvas.Left="-10" Canvas.Top="-10" RenderTransformOrigin="0.5,0.5">
-            <Border.Background>
-                <ImageBrush ImageSource="Assets/Sprites/Cars/redCar.png">
-                    <ImageBrush.RelativeTransform>
-                        <TransformGroup>
-                            <RotateTransform Angle="90" CenterX="0.5" CenterY="0.5"/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </ImageBrush.RelativeTransform>
-                </ImageBrush>
-            </Border.Background>
-            <Border.RenderTransform>
+        <Image Width="20" Height="20" Canvas.Left="-10" Canvas.Top="-10" RenderTransformOrigin="0.5,0.5" Source="Assets/Sprites/Cars/redCar.png">
+            <Image.LayoutTransform>
+                <TransformGroup>
+                    <RotateTransform Angle="90"/>
+                </TransformGroup>
+            </Image.LayoutTransform>
+
+            <Image.RenderTransform>
                 <TransformGroup>
                     <RotateTransform Angle="{Binding Player1.Direction}" />
                     <TranslateTransform X="{Binding Player1.Position.X}" Y="{Binding Player1.Position.Y}"/>
                 </TransformGroup>
-            </Border.RenderTransform>
+            </Image.RenderTransform>
 
-        </Border>
+        </Image>
         <Label x:Name="label" Content="{Binding Infotext}" Canvas.Left="200" Canvas.Top="274"/>
 
     </Canvas>
